@@ -8,12 +8,17 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function out(size, board) {
+function printBoard(size, board) {
   console.clear();
   for (let i = 0; i < size; i++) {
     let line = "";
     for (let j = 0; j < size; j++) {
-      line += board.charAt(size * i + j) + ' ';
+      let c = board.charAt(size * i + j);
+      // UNIX terminal protection
+      if (c === settings.game.elements.BOOM) {
+        c = '+';
+      }
+      line +=  c + ' ';
     }
     console.log(line)
   }
@@ -26,7 +31,7 @@ const run = async (player) => {
 
   const cursor = await db.collection(player).find({});
   for await(const board of cursor) {
-    out(board.boardSize, lib.decode(board.board));
+    printBoard(board.boardSize, lib.decode(board.board));
     console.log(board.info);
     console.log();
 
