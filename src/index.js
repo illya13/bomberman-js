@@ -1,6 +1,7 @@
+const WebSocket = require('ws');
+
 const settings = require('./settings');
 const lib = require('./lib');
-const WebSocket = require('ws');
 
 
 let ws, idPing, idHeartbeat, idRound;

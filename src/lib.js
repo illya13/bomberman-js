@@ -2,6 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const settings = require('./settings');
 
+
 const mapping = {};
 for (let i = 0; i < settings.game.alphabet.length; i++) {
   const sprite = settings.game.sprites[i];
@@ -10,9 +11,11 @@ for (let i = 0; i < settings.game.alphabet.length; i++) {
   }
 }
 
+
 function decode(board) {
   return Array.from(board).map(c => mapping[c]).join("");
 }
+
 
 async function mongoClient() {
   const client = new MongoClient(settings.mongo.url, { useUnifiedTopology: true });
@@ -20,5 +23,5 @@ async function mongoClient() {
   return client;
 }
 
-module.exports.decode = decode
-module.exports.mongoClient = mongoClient
+
+module.exports = {decode, mongoClient};
