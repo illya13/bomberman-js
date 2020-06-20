@@ -1,11 +1,8 @@
-const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
-const decode = require('./decode')
+const settings = require('./settings');
+const lib = require('./lib');
 
-const url = 'mongodb://10.8.0.6:27017';
-// const url = 'mongodb://localhost:27017';
-const dbName = 'bomberman';
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -13,25 +10,23 @@ function sleep(ms) {
 
 function out(size, board) {
   console.clear();
-  for (let i=0; i<size; i++) {
+  for (let i = 0; i < size; i++) {
     let line = "";
-    for (let j=0; j<size; j++) {
-      line += board.charAt(size*i+j) + ' ';
+    for (let j = 0; j < size; j++) {
+      line += board.charAt(size * i + j) + ' ';
     }
     console.log(line)
   }
 }
 
-(async function() {
-  const client = new MongoClient(url);
-  await client.connect();
-  const db = client.db(dbName);
 
-  const player = 'p0p8n9fwffdxem12bje0';
+const run = async (player) => {
+  const mongoClient = await lib.mongoClient();
+  const db = mongoClient.db(settings.mongo.dbName);
 
   const cursor = await db.collection(player).find({});
   for await(const board of cursor) {
-    out(board.boardSize, decode(board.board));
+    out(board.boardSize, lib.decode(board.board));
     console.log(board.info);
     console.log();
 
@@ -46,4 +41,9 @@ function out(size, board) {
     console.log('UTC:', new ObjectID(board['_id']).getTimestamp());
     await sleep(1000);
   }
-})();
+
+  console.log("ALL DONE", i);
+  await mongoClient.close();
+};
+
+(async () => await run('p0p8n9fwffdxem12bje0'))();

@@ -1,16 +1,14 @@
-const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
-// const url = 'mongodb://10.8.0.6:27017';
-const url = 'mongodb://localhost:27017';
-const dbName = 'bomberman';
+const settings = require('./settings');
+const lib = require('./lib');
 
-(async function() {
-  const client = new MongoClient(url);
-  await client.connect();
-  const db = client.db(dbName);
 
+const run = async () => {
+  const mongoClient = await lib.mongoClient();
+  const db = mongoClient.db(settings.mongo.dbName);
   const cursor = await db.collection('boards').find({});
+
   let i = 0;
   for await(const boards of cursor) {
     i++;
@@ -23,15 +21,13 @@ const dbName = 'bomberman';
       const board = boards[key];
       board['_id'] = _id;
       for (const player of Object.keys(board['scores'])) {
-        await db.collection(player).insertOne(board, {
-          w: 'majority',
-          wtimeout: 500,
-          serializeFunctions: true,
-          forceServerObjectId: true
-        });
+        await db.collection(player).insertOne(board, settings.mongo.insert);
       }
     }
   }
+
   console.log("ALL DONE", i);
-  client.close();
-})();
+  await mongoClient.close();
+};
+
+(async () => await run())();
