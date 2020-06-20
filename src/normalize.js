@@ -21,7 +21,8 @@ const run = async () => {
       const board = boards[key];
       board['_id'] = _id;
       for (const player of Object.keys(board['scores'])) {
-        await db.collection(player).insertOne(board, settings.mongo.insert);
+        const normalized = lib.switchPlayers(key, player, board);
+        await db.collection(player).insertOne(normalized, settings.mongo.insert);
       }
     }
   }
