@@ -1,8 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
-const url = 'mongodb://10.8.0.6:27017';
-// const url = 'mongodb://localhost:27017';
+// const url = 'mongodb://10.8.0.6:27017';
+const url = 'mongodb://localhost:27017';
 const dbName = 'bomberman';
 
 (async function() {
@@ -33,4 +33,5 @@ const dbName = 'bomberman';
     }
   }
   console.log("ALL DONE", i);
+  client.close();
 })();

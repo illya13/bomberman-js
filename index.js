@@ -4,6 +4,7 @@ const WebSocket = require('ws');
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'bomberman';
+const collection = 'boards';
 
 
 let db, ws, idPing, idHeartbeat, idRound;
@@ -12,7 +13,7 @@ let isAlive = false;
 
 const heartbeat = () => {
   if (!isAlive) {
-    console.log('HEARTBEAT');
+    console.log(new Date(), 'HEARTBEAT');
     reconect();
   }
   isAlive = false;
@@ -25,7 +26,6 @@ const ping = () => {
 
 
 const round = () => {
-  console.log("=> ", new Date());
   ws.send('{"name":"getScreen","allPlayersScreen":true,"players":["1mwsmmf8emx2yi94ho4y"],"gameName":"bomberman"}');
 };
 
@@ -41,14 +41,13 @@ const init = () => {
 
   ws.on('message', async (raw) => {
     const data = JSON.parse(raw);
-	console.log("<= ", new Date());
-	
     const r = await db.collection(collection).insertOne(data, {w: 'majority', wtimeout: 500, serializeFunctions: true, forceServerObjectId: true});
   });
 
   ws.on('error', (e) => {
+    console.log(new Date(), 'ERROR');
     console.log(e);
-	reconect();
+    reconect();
   });
 
   ws.on('pong', () => {
@@ -58,7 +57,7 @@ const init = () => {
 
 
 const reconect = () => {
-  console.log("RECONNECT");
+  console.log(new Date(), "RECONNECT");
   if (idPing) clearInterval(idPing);
   if (idHeartbeat) clearInterval(idHeartbeat);
   if (idRound) clearInterval(idRound);
