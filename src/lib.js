@@ -29,8 +29,6 @@ function switchBoard(board, key, player) {
     array[key] = toAlphabet[settings.game.elements.OTHER_BOMB_BOMBERMAN];
   } else if (settings.game.elements.DEAD_BOMBERMAN === element) {
     array[key] = toAlphabet[settings.game.elements.OTHER_DEAD_BOMBERMAN];
-  } else {
-    throw new Error("Can't map element" + element);
   }
 
   element = fromAlphabet[array[player]];
@@ -40,8 +38,6 @@ function switchBoard(board, key, player) {
     array[player] = toAlphabet[settings.game.elements.BOMB_BOMBERMAN];
   } else if (settings.game.elements.OTHER_DEAD_BOMBERMAN === element) {
     array[player] = toAlphabet[settings.game.elements.DEAD_BOMBERMAN];
-  } else {
-    throw new Error("Can't map element" + element);
   }
 
   return array.join("");
