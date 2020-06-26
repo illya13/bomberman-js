@@ -8,12 +8,13 @@ Please check `src` folder for the details.
 - [src/export.js](src/export.js) - export data to a json
  
  
-## install and run
+## Install and Run
  ```
 npm install
 
 node src/replay.js
 ```
+Most original scripts do use `MongoDB`. So consider refactoring for your needs. 
  
  
 ## Raw screen data
