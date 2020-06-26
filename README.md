@@ -1,5 +1,5 @@
 # Bomberman JS
-![Rules](rules_v4_2.png = 300x)
+![Rules](rules_v4_2.png)
 
 Set of utility scripts to collect and normalize Bomberman raw data.
 Please check `src` folder for the details.
