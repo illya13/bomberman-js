@@ -13,4 +13,10 @@ Please check `src` folder for the details.
  
  - The boards itself are in `screen`-format so has to be decoded. 
  - Please check [lib.human](https://github.com/illya13/bomberman-js/blob/master/src/lib.js#L18), [src/settings.js](src/settings.js) and [src/lib.js](src/lib.js).
+ 
+ ## Other bots repos
+ - [https://github.com/avida/bomberman](https://github.com/avida/bomberman)
+ - [https://github.com/SqrTT/bomber](https://github.com/SqrTT/bomber)
+ - [https://github.com/SashaPshenychniy/bomberman2020](https://github.com/SashaPshenychniy/bomberman2020)
+ 
     
