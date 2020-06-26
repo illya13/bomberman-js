@@ -31,6 +31,7 @@ node src/replay.js
  
  
 ## Original rules
-UKR, clickable
+... UKR, clickable
+
 <img src="https://raw.githubusercontent.com/illya13/bomberman-js/master/rules_v4_2.png" alt="Rules" width="50"/>
 
