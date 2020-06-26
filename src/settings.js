@@ -1,8 +1,10 @@
-module.exports = {
+const player = 'rammffc1xl9980pn9z3o';
+
+const settings = {
   server: {
-    user: '1mwsmmf8emx2yi94ho4y',
-    ws: 'wss://botchallenge.cloud.epam.com/codenjoy-contest/screen-ws?user=' + this.user,
-    screen: '{"name":"getScreen","allPlayersScreen":true,"players":["' + this.user + '"],"gameName":"bomberman"}',
+    user: player,
+    ws: 'wss://botchallenge.cloud.epam.com/codenjoy-contest/screen-ws?user=' + player,
+    screen: '{"name":"getScreen","allPlayersScreen":true,"players":["' + player + '"],"gameName":"bomberman"}',
     intervals: {
       ping: 5000,
       heartbeat: 11000,
@@ -107,3 +109,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = settings;

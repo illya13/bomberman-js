@@ -41,7 +41,8 @@ const run = async () => {
 
   ws.on('message', async (raw) => {
     const data = JSON.parse(raw);
-    await db.collection('boards').insertOne(data, settings.mongo.insert);
+    console.log(data)
+    //await db.collection('boards').insertOne(data, settings.mongo.insert);
   });
 
   ws.on('error', async (e) => {

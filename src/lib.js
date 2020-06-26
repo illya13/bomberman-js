@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 
 const settings = require('./settings');
 
@@ -59,6 +60,37 @@ function switchPlayers(key, player, board) {
 }
 
 
+function cleanBoard(board) {
+  let data = {};
+  Object.assign(data, board);
+  delete data['gameName'];
+  delete data['score'];
+  delete data['heroesData'];
+
+  data['_id'] = new ObjectID(board['_id']).getTimestamp();
+  data['coordinates'] = {};
+  for (const coordinate of Object.keys(board['heroesData']['coordinates'])) {
+    data['coordinates'][coordinate] = board['heroesData']['coordinates'][coordinate]['coordinate'];
+  }
+  return data;
+}
+
+
+function cleanAllBoards(boards) {
+  let data = {};
+  const _id = new ObjectID(boards['_id']);
+  data['_id'] = _id.getTimestamp();
+  for (const key of Object.keys(boards)) {
+    if (key === '_id') continue;
+
+    const board = boards[key];
+    board['_id'] = _id;
+    data[key] = cleanBoard(board);
+  }
+  return data;
+}
+
+
 async function mongoClient() {
   const client = new MongoClient(settings.mongo.url, { useUnifiedTopology: true });
   await client.connect();
@@ -91,4 +123,4 @@ function printBoard(size, board) {
 }
 
 
-module.exports = {human, switchPlayers, mongoClient, sleep, printBoard};
+module.exports = {human, switchPlayers, mongoClient, sleep, printBoard, cleanBoard, cleanAllBoards};
