@@ -1,6 +1,4 @@
 # Bomberman JS
-<img src="https://raw.githubusercontent.com/illya13/bomberman-js/master/rules_v4_2.png" alt="Rules" width="30"/>
-
 Set of utility scripts to collect and normalize Bomberman raw data.
 Please check `src` folder for the details.
 
@@ -31,4 +29,8 @@ node src/replay.js
 - [https://github.com/SqrTT/bomber](https://github.com/SqrTT/bomber)
 - [https://github.com/SashaPshenychniy/bomberman2020](https://github.com/SashaPshenychniy/bomberman2020)
  
-    
+ 
+## Original rules
+UKR, clickable
+<img src="https://raw.githubusercontent.com/illya13/bomberman-js/master/rules_v4_2.png" alt="Rules" width="50"/>
+
