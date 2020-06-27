@@ -159,8 +159,7 @@ const settings = {
   },
 
   mongo: {
-    //url: 'mongodb://localhost:27017',
-    url: 'mongodb://10.8.0.6:27017',
+    url: 'mongodb://localhost:27017',
     dbName: 'bomberman',
     insert: {
       w: 'majority',
