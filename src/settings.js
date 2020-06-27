@@ -93,7 +93,40 @@ const settings = {
         timeForWinner: 1,
         timeBeforeStartRound: 5
       },
-      '2020-06-22': {}
+      '2020-06-22': {
+        roundsPerMatch: 1,
+        minTicksForWin: 1,
+        perksDropRatio: 20,
+        perksPickTimeout: 5,
+        perksBombBlastRadiusIncrease: 2,
+        perksBombCountIncrease: 4,
+        perksBombCountEffectTimeout: 30,
+        perksBombImmuneEffectTimeout: 30,
+        perksNumberOfBombRemoteControl: 3,
+        perksBombBlastRadiusIncreaseEffectTimeout: 30,
+        roundsEnabled: true,
+        semifinalTimeout: 900,
+        semifinalPercentage: true,
+        semifinalLimit: 50,
+        semifinalEnabled: false,
+        semifinalResetBoard: true,
+        semifinalShuffleBoard: true,
+        multiple: false,
+        playersPerRoom: 5,
+        killWallScore: 1,
+        killMeatChopperScore: 10,
+        killOtherHeroScore: 20,
+        yourHeroesDeathPenalty: 30,
+        winRoundScore: 30,
+        bombsCount: 1,
+        bombPower: 3,
+        boardSize: 23,
+        destoryWallCount: 52,
+        meetChoppersCount: 5,
+        timePerRound: 200,
+        timeForWinner: 1,
+        timeBeforeStartRound: 5
+      }
     }
   },
 
