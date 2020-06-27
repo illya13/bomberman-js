@@ -27,7 +27,7 @@ const run = async (player) => {
     await lib.sleep(1000);
   }
 
-  console.log("ALL DONE", i);
+  console.log("NO MORE SCREENS");
   await mongoClient.close();
 };
 
