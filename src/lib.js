@@ -102,6 +102,7 @@ function coordinateToIndex(coordinate, size) {
   return coordinate.x + size*(size - coordinate.y - 1);
 }
 
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -114,7 +115,7 @@ function printBoard(size, board) {
       let c = board.charAt(size * i + j);
       // UNIX terminal protection
       if (c === settings.game.elements.BOOM) {
-        c = '+';
+        c = '*';
       }
       line +=  c + ' ';
     }

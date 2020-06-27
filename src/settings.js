@@ -130,8 +130,37 @@ const settings = {
     }
   },
 
+  export: {
+    timestamp: "5ef04c46bcda445a69f59c89",
+    players: {
+      "7na941lc1unrqembaz77": true,
+      "rammffc1xl9980pn9z3o": true,
+      "4hhuh2kpdkkmqaa22aey": true,
+      "15mmite2rhbuendm8atj": true,
+      "s4vmpmnhe6pr89c24hba": true,
+      "uzeem6y5o57fwix75qum": true,
+      "gubljie2khm74wx8fg5w": true,
+      "gdqk89qftxujna71w4ur": true,
+      "mhz5xg9tn0mp12tmryse": true,
+      "i2t2233nlgu3jegckthq": true,
+      "vy0c52iehd1sn0rlcuvf": true,
+      "p0p8n9fwffdxem12bje0": true,
+      "njaq471ilx8a28nvk01u": true,
+      "933f496rgd34y7h2kkus": true,
+      "ors0qf4yh5xk95zi9l0k": true,
+      "ezhqpi31qs55fz9lgq1o": true,
+      "g0zaq08ja51gobn0nocc": true,
+      "y59h2rius6go0ufo9gss": true,
+      "z0e51drhgjksoqofwjac": true,
+      "wdy3hvgbcaoz2iyuwn6o": true,
+      "y2xvmwbn1tkpur93x38n": true,
+      "m31eg564eubt46l48u6k": true
+    }
+  },
+
   mongo: {
-    url: 'mongodb://localhost:27017',
+    //url: 'mongodb://localhost:27017',
+    url: 'mongodb://10.8.0.6:27017',
     dbName: 'bomberman',
     insert: {
       w: 'majority',
