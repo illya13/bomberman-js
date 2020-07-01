@@ -21,7 +21,7 @@ Most original scripts do use `MongoDB`. So consider refactoring for your needs.
 ## Raw screen data
 [google drive](https://drive.google.com/drive/folders/1GBYH9hBdGEIpRlbTvMJnGYgd4E9KasqX?usp=sharing)
 - boards.zip [boards.raw] - how the data was initially captured
-- enriched.zip [<players>.raw] - enriched data, per player, enriched with the following: 
+- enriched.zip ['player'.raw] - enriched data, per player, enriched with the following: 
 ```javascript
 {
   done, reward, action, step,
