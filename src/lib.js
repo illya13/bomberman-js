@@ -165,7 +165,7 @@ function isDone(player, board) {
 
 
 function doStep(extra) {
-  if (!extra.done) extra.step++;
+  extra.step++;
   updateBombsIfAny(extra.bombs, extra.step);
   decreasePerksIfAny(extra.perks);
 }
@@ -181,12 +181,12 @@ function enrichPlayer(player, board, prev) {
       'bomb_immune': 0
     }
   }
-  if (prev) {
+  if (prev && !prev.done) {
     Object.assign(extra, enrichPrev(player, board, prev));
     collectPerksIfAny(player, board, prev, extra.perks);
     extra.reward = board.scores[player] - prev.scores[player];
   }
-  doStep(extra);
+  if (!extra.done || (prev && !prev.done)) doStep(extra);
   Object.assign(board, extra);
 }
 
