@@ -31,11 +31,11 @@ const run = async (player) => {
 
     console.log();
     console.log('UTC:', new ObjectID(board['_id']).getTimestamp());
-    await lib.sleep(100);
+    await lib.sleep(1000);
   }
 
   console.log("NO MORE SCREENS");
   await mongoClient.close();
 };
 
-(async () => await run('_p0p8n9fwffdxem12bje0'))();
+(async () => await run('933f496rgd34y7h2kkus'))();
