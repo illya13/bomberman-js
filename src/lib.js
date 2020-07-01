@@ -60,6 +60,137 @@ function switchPlayers(key, player, board) {
 }
 
 
+function actionByDeltas(dx, dy) {
+  if (dx === -1) {
+    return "LEFT";
+  } else if (dx === 1) {
+    return "RIGHT";
+  } else {
+    if (dy === -1) {
+      return "DOWN";
+    } else if (dy === 1) {
+      return "UP";
+    }
+  }
+}
+
+
+function playerIndexOnBoard(board, player) {
+  return coordinateToIndex(board.heroesData.coordinates[player].coordinate, board.boardSize);
+}
+
+
+function playerElementOnBoard(board, player) {
+  const index = playerIndexOnBoard(board, player);
+  return fromAlphabet[board.board.charAt(index)];
+}
+
+
+function dx(player, board, prev) {
+  return board.heroesData.coordinates[player].coordinate.x - prev.heroesData.coordinates[player].coordinate.x;
+}
+
+
+function dy(player, board, prev) {
+  return board.heroesData.coordinates[player].coordinate.y - prev.heroesData.coordinates[player].coordinate.y;
+}
+
+
+function playerAction(player, board, prev) {
+  let action = actionByDeltas(dx(player, board, prev), dy(player, board, prev));
+
+  let index = playerIndexOnBoard(prev, player);
+  let element = fromAlphabet[board.board.charAt(index)];
+  if (settings.game.elements.BOMB_TIMER_4 === element) {
+    return {action: ["ACT", action], bomb: {coordinate: prev.heroesData.coordinates[player].coordinate}};
+  }
+
+  element = playerElementOnBoard(board, player);
+  if (settings.game.elements.BOMB_BOMBERMAN === element) {
+    return {action: [action, "ACT"], bomb: {coordinate: board.heroesData.coordinates[player].coordinate}};
+  }
+  return {action: [action]};
+}
+
+
+function collectPerksIfAny(player, board, prev, perks) {
+  let index = playerIndexOnBoard(board, player);
+  let element = fromAlphabet[prev.board.charAt(index)];
+  if (settings.game.elements.BOMB_BLAST_RADIUS_INCREASE === element) {
+    perks['bomb_blast_radius_increase'] += settings.game.settings['2020-06-22'].perksBombBlastRadiusIncreaseEffectTimeout;
+  } else if (settings.game.elements.BOMB_COUNT_INCREASE === element) {
+    perks['bomb_count_increase'] += settings.game.settings['2020-06-22'].perksBombCountEffectTimeout;
+  } else if (settings.game.elements.BOMB_IMMUNE === element) {
+    perks['bomb_immune'] += settings.game.settings['2020-06-22'].perksBombImmuneEffectTimeout;
+  }
+}
+
+
+function decreasePerksIfAny(perks) {
+  if (perks['bomb_blast_radius_increase'] > 0) {
+    perks['bomb_blast_radius_increase']--;
+  }
+  if (perks['bomb_count_increase'] > 0) {
+    perks['bomb_count_increase']--;
+  }
+  if (perks['bomb_immune'] > 0) {
+    perks['bomb_immune']--;
+  }
+}
+
+
+function updateBombsIfAny(bombs, step) {
+  for (const bomb of Object.keys(bombs)) {
+    if (parseInt(bomb) + 5 < step) {
+      delete bombs[bomb];
+    }
+  }
+}
+
+
+function enrichPrev(player, board, prev) {
+  const prevAction = playerAction(player, board, prev);
+  prev.action = prevAction.action.filter(a => a !== undefined);
+  if (prevAction.bomb) {
+    prev.bombs[prev.step] = prevAction.bomb;
+  }
+  return {step: prev.step, bombs: prev.bombs, perks: prev.perks};
+}
+
+
+function isDone(player, board) {
+  const element = playerElementOnBoard(board, player);
+  return (settings.game.elements.DEAD_BOMBERMAN === element);
+}
+
+
+function doStep(extra) {
+  if (!extra.done) extra.step++;
+  updateBombsIfAny(extra.bombs, extra.step);
+  decreasePerksIfAny(extra.perks);
+}
+
+
+function enrichPlayer(player, board, prev) {
+  let extra = {
+    done: isDone(player, board), reward: 0, step: 0,
+    bombs: {},
+    perks: {
+      'bomb_blast_radius_increase': 0,
+      'bomb_count_increase': 0,
+      'bomb_immune': 0
+    }
+  }
+  if (prev) {
+    Object.assign(extra, enrichPrev(player, board, prev));
+    collectPerksIfAny(player, board, prev, extra.perks);
+    extra.reward = board.scores[player] - prev.scores[player];
+  }
+  doStep(extra);
+  Object.assign(board, extra);
+}
+
+
 function cleanBoard(board) {
   let data = {};
   Object.assign(data, board);
@@ -92,14 +223,14 @@ function cleanAllBoards(boards) {
 
 
 async function mongoClient() {
-  const client = new MongoClient(settings.mongo.url, { useUnifiedTopology: true });
+  const client = new MongoClient(settings.mongo.url, {useUnifiedTopology: true});
   await client.connect();
   return client;
 }
 
 
 function coordinateToIndex(coordinate, size) {
-  return coordinate.x + size*(size - coordinate.y - 1);
+  return coordinate.x + size * (size - coordinate.y - 1);
 }
 
 
@@ -117,11 +248,11 @@ function printBoard(size, board) {
       if (c === settings.game.elements.BOOM) {
         c = '*';
       }
-      line +=  c + ' ';
+      line += c + ' ';
     }
     console.log(line)
   }
 }
 
 
-module.exports = {human, switchPlayers, mongoClient, sleep, printBoard, cleanBoard, cleanAllBoards};
+module.exports = {human, switchPlayers, mongoClient, sleep, printBoard, cleanBoard, cleanAllBoards, enrichPlayer};

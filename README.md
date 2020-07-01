@@ -4,7 +4,8 @@ Please check `src` folder for the details.
 
 - [src/index.js](src/index.js) - collect raw data
 - [src/normalize.js](src/normalize.js) - normalize the data for per-player format
-- [src/replay.js](src/replay.js) - show game boards for a selected players
+- [src/replay.js](src/replay.js) - show game boards for a selected player
+- [src/enrich.js](src/enrich.js) - enrich state with `action`, `reward`, `done` and `bombs`, `perks?`
 - [src/export.js](src/export.js) - export data to a json
  
  
