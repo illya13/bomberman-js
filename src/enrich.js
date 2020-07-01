@@ -8,7 +8,7 @@ const playerEnrich = async (db, player) => {
   let i = 0, prev = null;
   for await(const board of cursor) {
     i++;
-    if (i % 100 === 0) console.log(player, i);
+    if (i % 1000 === 0) console.log(player, i);
 
     lib.enrichPlayer(player, board, prev);
     if (prev) await db.collection(player).replaceOne({_id: prev._id}, prev);
