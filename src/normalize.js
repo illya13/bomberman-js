@@ -14,7 +14,7 @@ const run = async () => {
   let i = 0;
   for await(const boards of cursor) {
     i++;
-    if (i % 100 === 0) console.log(i);
+    if (i % 1000 === 0) console.log(i);
 
     const _id = new ObjectID(boards['_id']);
     for (const key of Object.keys(boards)) {
