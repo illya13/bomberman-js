@@ -44,6 +44,7 @@ More info:
 - [https://github.com/avida/bomberman](https://github.com/avida/bomberman)
 - [https://github.com/SqrTT/bomber](https://github.com/SqrTT/bomber)
 - [https://github.com/SashaPshenychniy/bomberman2020](https://github.com/SashaPshenychniy/bomberman2020)
+- [https://github.com/BlackVS/botchallenge-epam-2020](https://github.com/BlackVS/botchallenge-epam-2020)
  
  
 ## Original rules
