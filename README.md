@@ -20,7 +20,21 @@ Most original scripts do use `MongoDB`. So consider refactoring for your needs.
  
 ## Raw screen data
 [google drive](https://drive.google.com/drive/folders/1GBYH9hBdGEIpRlbTvMJnGYgd4E9KasqX?usp=sharing)
+- boards.zip [boards.raw] - how the data was initially captured
+- enriched.zip [<players>.raw] - enriched data, per player, enriched with the following: 
+```javascript
+{
+  done, reward, action, step,
+  bombs: {},
+  perks: {
+    'bomb_blast_radius_increase',
+    'bomb_count_increase',
+    'bomb_immune'
+  }
+}
+```
 
+More info:
 - each row - another board data from the server with all rooms in `json`  
 - The boards itself are in `screen`-format so has to be decoded. 
 - Please check [lib.human](https://github.com/illya13/bomberman-js/blob/master/src/lib.js#L18), [src/settings.js](src/settings.js) and [src/lib.js](src/lib.js).
